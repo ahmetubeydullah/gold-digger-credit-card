@@ -1,5 +1,5 @@
 <template>
-  <HelloWorld />
+  <GoldCalculator />
 </template>
 
 <script lang="ts" setup>

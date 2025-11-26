@@ -1,8 +1,16 @@
 {
   "name": "gold-digger-credit-card",
+  "version": "1.0.0",
+  "description": "Altını taksitle mi almalı, yoksa peşin mi? Fon getirisi hesaplayarak en karlı seçeneği bulan hesaplama uygulaması.",
+  "author": "Ahmet Ubeydullah",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ahmetubeydullah/gold-digger-credit-card.git"
+  },
+  "homepage": "https://ahmetubeydullah.github.io/gold-digger-credit-card/",
   "private": true,
   "type": "module",
-  "version": "0.0.0",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
