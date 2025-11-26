@@ -7,61 +7,7 @@
       </h2>
 
       <v-row dense>
-        <v-col cols="12" md="9">
-          <v-form v-model="formValid">
-            <v-row dense>
-              <v-col cols="12" sm="6">
-                <v-text-field color="red" label="Peşin Altın Fiyatı (TL)" v-model.number="cashPrice" type="number"
-                  :rules="positiveNumberRule" required />
-              </v-col>
-
-              <v-col cols="12" sm="6">
-                <v-text-field color="red" label="Taksitli Fiyat (TL)" v-model.number="installmentPrice" type="number"
-                  :rules="positiveNumberRule" required />
-              </v-col>
-
-              <v-col cols="12" sm="4">
-                <v-text-field color="red" label="Taksit Sayısı" v-model.number="installmentCount" type="number"
-                  :rules="installmentCountRule" required />
-              </v-col>
-
-              <v-col cols="12" sm="4">
-                <v-text-field color="red" label="Bonus (TL) — Tek Seferlik" v-model.number="bonus" type="number"
-                  :rules="nonNegativeNumberRule" hint="Kredi kartı bonusu" required />
-              </v-col>
-
-              <v-col cols="12" sm="4">
-                <v-text-field color="red" label="Günlük Getiri (%)" v-model.number="dailyReturnPercent" type="number" suffix="%"
-                  :rules="percentRule" step="0.01" required />
-              </v-col>
-
-              <v-col cols="12" sm="4">
-                <v-text-field color="red" label="Satın Alma Tarihi" type="date" v-model="purchaseDate" :rules="dateRule" required />
-              </v-col>
-
-              <v-col cols="12" sm="4">
-                <v-text-field color="red" label="Ekstre Kesim Tarihi" type="date" v-model="cutoffDate"
-                  @change="updateAutoPaymentDate" :rules="cutoffDateRule" hint="Kredi kartı ekstre kesim tarihi"
-                  required />
-              </v-col>
-
-              <v-col cols="12" sm="4">
-                <v-text-field color="red" label="Fatura Ödeme Tarihi (ilk ödeme)" type="date" v-model="firstPaymentDate"
-                  :rules="firstPaymentDateRule" hint="İlk taksit ödeme tarihi" required />
-              </v-col>
-
-              <v-col cols="12" sm="4" offset="4" class="d-flex align-center">
-                <v-btn color="red-darken-1" @click="calculate" :disabled="!formValid" size="large" elevation="2"
-                  block>
-                  <v-icon icon="mdi-calculator" class="mr-2"></v-icon>
-                  Hesapla
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-form>
-        </v-col>
-
-        <v-col cols="12" md="3">
+        <v-col cols="12" md="3" order="1" order-md="2" class="mb-6 mb-md-0">
           <div class="text-subtitle-1 font-weight-bold mb-3 text-amber-darken-3">Kredi Kartları</div>
           <div class="d-flex flex-column ga-3">
             <v-card v-for="card in creditCards" :key="card.id" @click="selectCard(card)" :color="card.color"
@@ -84,6 +30,108 @@
               </div>
             </v-card>
           </div>
+        </v-col>
+
+        <v-col cols="12" md="9" order="2" order-md="1">
+          <v-form v-model="formValid">
+            <v-row dense>
+              <v-col cols="12" sm="6">
+                <v-text-field color="red" label="Peşin Altın Fiyatı (TL)" v-model.number="cashPrice" type="number"
+                  :rules="positiveNumberRule" variant="outlined" required />
+              </v-col>
+
+              <v-col cols="12" sm="6">
+                <v-text-field color="red" label="Taksitli Fiyat (TL)" v-model.number="installmentPrice" type="number"
+                  :rules="positiveNumberRule" variant="outlined" required />
+              </v-col>
+
+              <v-col cols="12" sm="4">
+                <v-text-field color="red" label="Taksit Sayısı" v-model.number="installmentCount" type="number"
+                  :rules="installmentCountRule" variant="outlined" required />
+              </v-col>
+
+              <v-col cols="12" sm="4">
+                <v-text-field color="red" label="Bonus (TL) — Tek Seferlik" v-model.number="bonus" type="number"
+                  :rules="nonNegativeNumberRule" hint="Kredi kartı bonusu" variant="outlined" required />
+              </v-col>
+
+              <v-col cols="12" sm="4">
+                <v-text-field color="red" label="Günlük Getiri (%)" v-model.number="dailyReturnPercent" type="number" suffix="%"
+                  :rules="percentRule" step="0.01" variant="outlined" required />
+              </v-col>
+
+              <v-col cols="12" sm="4">
+                <v-text-field color="red" label="Satın Alma Tarihi" type="date" v-model="purchaseDate" :rules="dateRule" variant="outlined" required />
+              </v-col>
+
+              <v-col cols="12" sm="4">
+                <v-text-field color="red" label="Ekstre Kesim Tarihi" type="date" v-model="cutoffDate"
+                  @change="updateAutoPaymentDate" :rules="cutoffDateRule" hint="Kredi kartı ekstre kesim tarihi"
+                  variant="outlined" required />
+              </v-col>
+
+              <v-col cols="12" sm="4">
+                <v-text-field color="red" label="Fatura Ödeme Tarihi (ilk ödeme)" type="date" v-model="firstPaymentDate"
+                  :rules="firstPaymentDateRule" hint="İlk taksit ödeme tarihi" variant="outlined" required />
+              </v-col>
+            </v-row>
+
+            <v-row dense class="mt-2">
+              <v-col cols="12" class="d-flex justify-center">
+                <v-btn color="red-darken-1" @click="calculate" :disabled="!formValid" size="large" elevation="2"
+                  min-width="200">
+                  <v-icon icon="mdi-calculator" class="mr-2"></v-icon>
+                  Hesapla
+                </v-btn>
+              </v-col>
+            </v-row>
+
+            <v-row dense class="mt-4">
+              <v-col cols="12">
+                <v-card class="pa-4" color="orange-lighten-5" elevation="3" border="1">
+                  <div class="text-subtitle-2 font-weight-bold mb-3 text-amber-darken-4">
+                    <v-icon icon="mdi-link-variant" class="mr-2" color="amber-darken-3"></v-icon>
+                    Faydalı Linkler
+                  </div>
+                  <div class="d-flex flex-column flex-sm-row ga-2">
+                    <v-btn
+                      href="https://www.tefas.gov.tr/FonKarsilastirma.aspx"
+                      target="_blank"
+                      color="cyan-darken-2"
+                      variant="elevated"
+                      size="small"
+                      class="flex-grow-1"
+                    >
+                      <v-icon icon="mdi-chart-line" class="mr-2"></v-icon>
+                      TEFAS Fon Getirileri
+                    </v-btn>
+                    <v-btn
+                      href="https://www.haremaltin.com/"
+                      target="_blank"
+                      color="amber-darken-4"
+                      variant="elevated"
+                      size="small"
+                      class="flex-grow-1"
+                    >
+                      <v-icon icon="mdi-gold" class="mr-2"></v-icon>
+                      Harem Altın Fiyatları
+                    </v-btn>
+                    <v-btn
+                      href="https://www.izko.org.tr/Home/GuncelKur"
+                      target="_blank"
+                      color="yellow-darken-4"
+                      variant="elevated"
+                      size="small"
+                      class="flex-grow-1"
+                    >
+                      <v-icon icon="mdi-gold" class="mr-2"></v-icon>
+                      İzmir Kuyumcular Odası
+                    </v-btn>
+                  </div>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-form>
         </v-col>
       </v-row>
 
