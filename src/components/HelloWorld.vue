@@ -485,7 +485,8 @@ const maxInstallmentPrice = computed<number>(() => {
     const periods: { start: moment.Moment; end: moment.Moment }[] = []
     let start = purchase.clone()
     for (let i = 0; i < paymentDates.length; i++) {
-      const end = paymentDates[i].clone()
+      const end = paymentDates[i]?.clone()
+      if (!end) continue
       periods.push({ start: start.clone(), end: end.clone() })
       start = end.clone().add(1, 'day')
     }
@@ -494,7 +495,7 @@ const maxInstallmentPrice = computed<number>(() => {
     const bonusCredit = purchase.clone().add(1, 'month').startOf('month')
     let idxPaymentAfterBonusCredit = -1
     for (let j = 0; j < paymentDates.length; j++) {
-      if (paymentDates[j].isSameOrAfter(bonusCredit, 'day')) {
+      if (paymentDates[j]?.isSameOrAfter(bonusCredit, 'day')) {
         idxPaymentAfterBonusCredit = j
         break
       }
@@ -519,6 +520,7 @@ const maxInstallmentPrice = computed<number>(() => {
 
       for (let i = 0; i < periods.length; i++) {
         const p = periods[i]
+        if (!p) continue
 
         // Ana fon getirisi
         const mainGain = calculateFundGain(testMainFund, p.start, p.end, dailyRate)
@@ -638,7 +640,8 @@ function calculate() {
   const periods: { start: moment.Moment; end: moment.Moment; payDate: moment.Moment }[] = []
   let start = purchase.clone()
   for (let i = 0; i < paymentDates.length; i++) {
-    const end = paymentDates[i].clone()
+    const end = paymentDates[i]?.clone()
+    if (!end) continue
     periods.push({ start: start.clone(), end: end.clone(), payDate: end.clone() })
     start = end.clone().add(1, 'day')  // Bir sonraki dönem, bu ödemeden 1 gün sonra başlar
   }
@@ -661,7 +664,7 @@ function calculate() {
   // Bonus ödemesinden sonraki ilk ödemeyi bul
   let idxPaymentAfterBonusCredit = -1
   for (let j = 0; j < paymentDates.length; j++) {
-    if (paymentDates[j].isSameOrAfter(bonusCredit, 'day')) {
+    if (paymentDates[j]?.isSameOrAfter(bonusCredit, 'day')) {
       idxPaymentAfterBonusCredit = j
       break
     }
@@ -686,6 +689,7 @@ function calculate() {
 
   for (let i = 0; i < periods.length; i++) {
     const p = periods[i]
+    if (!p) continue
     const startStr = p.start.format('DD.MM.YYYY')
     const endStr = p.end.format('DD.MM.YYYY')
 
